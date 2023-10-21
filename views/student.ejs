@@ -1,0 +1,58 @@
+<!-- <h1>Student</h1> -->
+
+ <div>
+    <!-- table showing student created so far -->
+    <table id="student">
+        <caption><b><u>Student List</u></b></caption>
+        <tr>
+            <th>Name</th>
+            <th>College</th>
+            <th>Placement</th>
+            <th>DSA</th>
+            <th>WebD</th>
+            <th>React</th>
+            <th>Interview</th>
+        </tr> 
+        <% for(let i of student){ %>
+            <tr>
+                <td><%= i.name %></td>
+                <td><%= i.college %></td>
+                <td><%= i.placement %></td>
+                <td><%= i.dsa %></td>
+                <td><%= i.webd %></td>
+                <td><%= i.react %></td>
+                <!-- <td><%= i.interviews %></td> -->
+                <td><% for (let interview of i.interviews){ %>
+                    <p>Date: <%= interview.date %>,
+                        Company: <%= interview.company %>,
+                        Result: <%= interview.result %></p>
+                    <% } %>
+                </td>              
+            </tr>
+
+        <% } %> 
+    </table> <br>
+</div>
+
+//form appears after authentication, to create student
+<% if(locals.user){ %>
+    <form action="/student/create" method="POST">
+        <!-- <input type="number" name="id" placeholder="Student id" required><br><br> -->
+        <input type="text" name="name" placeholder="Student name" required><br>
+        <input type="text" name="college" placeholder="College name" required><br>
+        
+        <p><b>Placement Status</b>
+        <input type="radio" id="placed" name="placement" value="Placed" required>
+        <label for="placed">Placed</label>
+        <input type="radio" id="not_placed" name="placement" value="Not Placed" required>
+        <label for="not_placed">Not Placed</label><br>
+        </p>
+        <input type="number" name="dsa" placeholder = "DSA Final Score" required><br>
+        <input type="number" name="webd" placeholder = "WebD Final Score" required><br>
+        <input type="number" name="react" placeholder = "React Final Score" required><br>
+        <input type="hidden" name="interviews" value="<%= interviews._id %>">
+        <input type = "submit" value="Add Student">
+    </form>
+
+    <a href="/student/download-csv">Download</a> 
+<% } %>

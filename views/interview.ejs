@@ -1,0 +1,48 @@
+<!-- <h1>Interview Schedule</h1> -->
+<div>
+    <!-- table showing interviews created so far -->
+    <table id="interview">
+        <caption><b><u>Interview List</u></b></caption>
+        <tr>
+            <th>Date</th>
+            <th>Company</th>
+            <th>Student</th>
+            <th>Result</th>
+            
+        </tr>
+        <% for(let i of interview){ %>
+            <tr>
+                <td><%= i.date %></td>
+                <td><%= i.company %></td>
+                <td><%= i.student.name %></td>
+                <td><%= i.result %></td>
+                
+            </tr>
+
+        <% } %>
+    </table>
+    
+</div><br>
+
+<!-- form to create interview -->
+<form action="/interview/create" method="POST">
+    <input type="date" name="date" placeholder="select date" required>
+    <input type="text" name="company" placeholder="Company name" required>
+    
+    <p>Student Name:
+    <select name="student" required>
+        <% students.forEach(student => { %>
+            <option value="<%= student.id %>"><%= student.name %></option>
+        <% }); %>
+    </select></p>
+
+    <input type="radio" id="pass" name="result" value="pass">
+    <label for="pass">PASS</label>
+    <input type="radio" id="fail" name="result" value="fail">
+    <label for="fail">FAIL</label>
+    <input type="radio" id="hold" name="result" value="hold">
+    <label for="hold">HOLD</label><br><br>
+    </p>
+    <input type="submit" value="Schedule">
+
+</form>
